@@ -70,7 +70,7 @@ exports.getLatestVersion = function(name, callback) {
 /**
  * @summary Checks that a package is on the latest version
  * @function
- * @protected
+ * @public
  *
  * @param {Object} packageJSON - the package.json
  * @param {Function} callback - callback(error, isUpdated)

@@ -6,6 +6,8 @@ async = require('async');
 
 npm = require('./npm');
 
+exports.isUpdated = npm.isUpdated;
+
 
 /**
  * @summary Update an NPM package

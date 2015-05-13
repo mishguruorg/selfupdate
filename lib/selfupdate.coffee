@@ -2,6 +2,10 @@ _ = require('lodash-contrib')
 async = require('async')
 npm = require('./npm')
 
+# This function is documented and unit tested
+# in the respective declaration place
+exports.isUpdated = npm.isUpdated
+
 ###*
 # @summary Update an NPM package
 # @function

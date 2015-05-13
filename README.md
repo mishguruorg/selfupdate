@@ -45,6 +45,30 @@ selfupdate.update(packageJSON, function(error, version) {
 });
 ```
 
+### selfupdate.isUpdated(Object packageJSON, Function callback)
+
+Check if a global package is in the latest version.
+
+The function requires the `package.json`, which you can require like:
+
+```javascript
+var packageJSON = require('./package.json');
+```
+
+The callback gets passed two arguments: `(error, isUpdated)`, where `isUpdated` is a `Boolean` that determines if the package is up to date.
+
+Example:
+
+```javascript
+var selfupdate = require('selfupdate');
+var packageJSON = require('./package.json');
+
+selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
+		if(error) throw error;
+		console.log('Is the package up to date? ' + isUpdated);
+});
+```
+
 Tests
 -----
 

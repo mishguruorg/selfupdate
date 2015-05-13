@@ -95,6 +95,13 @@ Support
 
 If you're having any problem, please [raise an issue](https://github.com/jviotti/selfupdate/issues/new) on GitHub.
 
+ChangeLog
+---------
+
+### v1.1.0
+
+- [feature] Expose selfupdate.isUpdated()
+
 License
 -------
 

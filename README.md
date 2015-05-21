@@ -4,6 +4,7 @@ selfupdate
 [![npm version](https://badge.fury.io/js/selfupdate.svg)](http://badge.fury.io/js/selfupdate)
 [![dependencies](https://david-dm.org/jviotti/selfupdate.png)](https://david-dm.org/jviotti/selfupdate.png)
 [![Build Status](https://travis-ci.org/jviotti/selfupdate.svg?branch=master)](https://travis-ci.org/jviotti/selfupdate)
+[![Build status](https://ci.appveyor.com/api/projects/status/mo9ju1rm4xmwas3d?svg=true)](https://ci.appveyor.com/project/jviotti/selfupdate)
 
 Selfupdate your global NPM package.
 

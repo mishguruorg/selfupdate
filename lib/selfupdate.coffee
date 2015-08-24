@@ -1,3 +1,4 @@
+child_process = require('child_process')
 _ = require('lodash-contrib')
 async = require('async')
 npm = require('./npm')
@@ -45,3 +46,23 @@ exports.update = (packageJSON, callback) ->
 			npm.update(packageJSON, callback)
 
 	], callback)
+
+###*
+# @summary Restart the current process
+# @function
+# @public
+#
+# @description
+# Restart the current process using process.argv.
+# The current process exits only when the child
+# process does, so you must make sure the current
+# process does not run any further code.
+#
+# @example
+# selfupdate.restart()
+###
+exports.restart = ->
+	command = process.argv[0]
+	args = process.argv.slice(1)
+	child = child_process.spawn(command, args, stdio: 'inherit')
+	child.on('close', process.exit)

@@ -70,6 +70,33 @@ selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
 });
 ```
 
+### selfupdate.restart()
+
+Restart the current process, based on `process.argv`.
+
+This function is useful when you self update your application and need to re run with the latest version.
+
+Notice that the current process exits only when the child process does, so you must make sure the current process does not run any further code.
+
+Example:
+
+```javascript
+var selfupdate = require('selfupdate');
+
+selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
+		if(error) throw error;
+
+		if (!isUpdated) {
+			selfupdate.update(packageJSON, function(error, version) {
+				if(error) throw error;
+
+				return selfupdate.restart();
+		} else {
+			console.log('Runinng the latest version!');
+		}
+});
+```
+
 Tests
 -----
 

@@ -24,7 +24,7 @@ If the installation fails with a permission related error, the module will attem
 The function requires the `package.json`, which you can require like:
 
 ```javascript
-var packageJSON = require('./package.json');
+import packageJSON from './package.json'
 ```
 
 The callback gets passed two arguments: `(error, version)`, where `version` is the new version of the package after the update took place.
@@ -32,13 +32,13 @@ The callback gets passed two arguments: `(error, version)`, where `version` is t
 Example:
 
 ```javascript
-var selfupdate = require('selfupdate');
-var packageJSON = require('./package.json');
+import * as selfupdate from '@mishguru/selfupdate'
 
-selfupdate.update(packageJSON, function(error, version) {
-		if(error) throw error;
-		console.log('The package was updated to version: ' + version);
-});
+import packageJSON from './package.json'
+
+const version = await selfupdate.update(packageJSON)
+
+console.log('The package was updated to version: ' + version)
 ```
 
 ### selfupdate.isUpdated(Object packageJSON, Function callback)
@@ -48,7 +48,7 @@ Check if a global package is in the latest version.
 The function requires the `package.json`, which you can require like:
 
 ```javascript
-var packageJSON = require('./package.json');
+import packageJSON from './package.json'
 ```
 
 The callback gets passed two arguments: `(error, isUpdated)`, where `isUpdated` is a `Boolean` that determines if the package is up to date.
@@ -56,13 +56,13 @@ The callback gets passed two arguments: `(error, isUpdated)`, where `isUpdated` 
 Example:
 
 ```javascript
-var selfupdate = require('selfupdate');
-var packageJSON = require('./package.json');
+import * as selfupdate from '@mishguru/selfupdate'
 
-selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
-		if(error) throw error;
-		console.log('Is the package up to date? ' + isUpdated);
-});
+import packageJSON from './package.json'
+
+const isUpdated = await selfupdate.isUpdated(packageJSON)
+
+console.log('Is the package up to date? ' + isUpdated)
 ```
 
 ### selfupdate.restart()
@@ -76,18 +76,15 @@ Notice that the current process exits only when the child process does, so you m
 Example:
 
 ```javascript
-var selfupdate = require('selfupdate');
+import * as selfupdate from 'selfupdate'
 
-selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
-		if(error) throw error;
+const isUpdated = await selfupdate.isUpdated(packageJSON)
 
-		if (!isUpdated) {
-			selfupdate.update(packageJSON, function(error, version) {
-				if(error) throw error;
-
-				return selfupdate.restart();
-		} else {
-			console.log('Runinng the latest version!');
-		}
-});
+if (!isUpdated) {
+  const version = await selfupdate.update(packageJSON)
+  selfupdate.restart()
+  return
+} else {
+  console.log('Runinng the latest version!')
+}
 ```

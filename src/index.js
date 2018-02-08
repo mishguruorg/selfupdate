@@ -1,11 +1,11 @@
 /* @flow */
 
-import selfupdate from './selfupdate'
+import update from './selfupdate'
 import isUpdated from './isUpdated'
 import restart from './restart'
 
 export {
-  selfupdate,
+  update,
   isUpdated,
   restart
 }

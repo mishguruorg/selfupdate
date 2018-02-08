@@ -10,12 +10,10 @@ const loadAsync = promisify(npm.load)
  */
 
 const getInfo = async (packageName: string) => {
-  console.log('loading...')
   await loadAsync({
     loglevel: 'silent',
     global: true
   })
-  console.log('loaded!')
 
   const viewCommandAsync = promisify(npm.commands.view)
 

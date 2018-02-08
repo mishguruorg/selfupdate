@@ -1,12 +1,12 @@
 {
-  "name": "selfupdate",
-  "version": "1.1.0",
+  "name": "@mishguru/selfupdate",
+  "version": "2.0.0",
   "description": "Selfupdate your global NPM package",
-  "main": "build/selfupdate.js",
-  "homepage": "https://github.com/resin-io/selfupdate",
+  "main": "dist/index.js",
+  "homepage": "https://github.com/mishguruorg/selfupdate",
   "repository": {
     "type": "git",
-    "url": "git://github.com/resin-io/selfupdate.git"
+    "url": "git://github.com/mishguruorg/selfupdate.git"
   },
   "keywords": [
     "selfupdate",
@@ -14,32 +14,55 @@
     "autoupdate",
     "npm"
   ],
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "gulp test",
-    "prepublish": "gulp build"
+    "build": "pkg-build",
+    "coverage": "NODE_ENV=test_local pkg-coverage",
+    "flow": "pkg-flow",
+    "lint": "pkg-lint",
+    "prepublish": "npm run build",
+    "test": "NODE_ENV=test_local pkg-test",
+    "test-only": "NODE_ENV=test_local pkg-test-only",
+    "start": "node dist/cli.js"
   },
   "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
+  "constributors": [
+    "George Czabania <george@mish.guru>"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "chai": "~1.10.0",
-    "coffee-script": "~1.8.0",
-    "gulp": "~3.8.10",
-    "gulp-coffee": "~2.2.0",
-    "gulp-coffeelint": "~0.4.0",
-    "gulp-mocha": "~2.0.0",
-    "gulp-util": "~3.0.1",
-    "mocha": "~2.0.1",
-    "sinon": "~1.12.2",
-    "sinon-chai": "~2.6.0"
+    "@mishguru/package": "1.15.4",
+    "sinon": "^4.2.2",
+    "stu": "^1.3.0"
+  },
+  "babel": {
+    "presets": [
+      "flow",
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "transform-object-rest-spread",
+        {
+          "useBuiltIns": true
+        }
+      ]
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   },
   "dependencies": {
-    "async": "^0.9.0",
-    "lodash": "^3.9.1",
-    "lodash-contrib": "^241.4.14",
-    "npm": "^2.9.1",
-    "president": "^1.0.0"
+    "child-process-es6-promise": "^1.1.0",
+    "npm": "^5.6.0"
   }
 }

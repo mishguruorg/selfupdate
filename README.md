@@ -1,10 +1,5 @@
-selfupdate
-----------
-
-[![npm version](https://badge.fury.io/js/selfupdate.svg)](http://badge.fury.io/js/selfupdate)
-[![dependencies](https://david-dm.org/jviotti/selfupdate.png)](https://david-dm.org/jviotti/selfupdate.png)
-[![Build Status](https://travis-ci.org/jviotti/selfupdate.svg?branch=master)](https://travis-ci.org/jviotti/selfupdate)
-[![Build status](https://ci.appveyor.com/api/projects/status/mo9ju1rm4xmwas3d?svg=true)](https://ci.appveyor.com/project/jviotti/selfupdate)
+@mishguru/selfupdate
+--------------------
 
 Selfupdate your global NPM package.
 
@@ -14,7 +9,7 @@ Installation
 Install `selfupdate` by running:
 
 ```sh
-$ npm install --save selfupdate
+$ npm install --save @mishguru/selfupdate
 ```
 
 Documentation
@@ -96,41 +91,3 @@ selfupdate.isUpdated(packageJSON, function(error, isUpdated) {
 		}
 });
 ```
-
-Tests
------
-
-Run the test suite by doing:
-
-```sh
-$ gulp test
-```
-
-Contribute
-----------
-
-- Issue Tracker: [github.com/jviotti/selfupdate/issues](https://github.com/jviotti/selfupdate/issues)
-- Source Code: [github.com/jviotti/selfupdate](https://github.com/jviotti/selfupdate)
-
-Before submitting a PR, please make sure that you include tests, and that [coffeelint](http://www.coffeelint.org/) runs without any warning:
-
-```sh
-$ gulp lint
-```
-
-Support
--------
-
-If you're having any problem, please [raise an issue](https://github.com/jviotti/selfupdate/issues/new) on GitHub.
-
-ChangeLog
----------
-
-### v1.1.0
-
-- [feature] Expose selfupdate.isUpdated()
-
-License
--------
-
-The project is licensed under the MIT license.

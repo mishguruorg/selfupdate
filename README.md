@@ -12,6 +12,34 @@ Install `selfupdate` by running:
 $ npm install --save @mishguru/selfupdate
 ```
 
+Example Usage
+-------------
+
+```javascript
+import { update, isUpdated } from '@mishguru/selfupdate'
+
+import packageJSON from '../package.json'
+
+const { name, version } = packageJSON
+
+const selfupdate = async () => {
+  console.log(`[${version}] Checking to see if there is a new version available...`)
+
+  const runningLatestVersion = await isUpdated(packageJSON)
+  if (!runningLatestVersion) {
+    console.log(`[${version}] Found a new version! Attempting to update...`)
+
+    const version = await update(packageJSON)
+
+    console.log(`${name} v${version} has been installed!`)
+  } else {
+    console.log(`${name} v${packageJSON.version} is the latest version.`)
+  }
+}
+
+export default selfupdate
+```
+
 Documentation
 -------------
 
@@ -81,7 +109,7 @@ must make sure the current process does not run any further code.
 Example:
 
 ```javascript
-import * as selfupdate from 'selfupdate'
+import * as selfupdate from '@mishguru/selfupdate'
 
 const isUpdated = await selfupdate.isUpdated(packageJSON)
 
@@ -90,6 +118,6 @@ if (!isUpdated) {
   selfupdate.restart()
   return
 } else {
-  console.log('Runinng the latest version!')
+  console.log('Running the latest version!')
 }
 ```

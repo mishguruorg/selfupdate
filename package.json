@@ -1,6 +1,6 @@
 {
   "name": "@mishguru/selfupdate",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "Selfupdate your global NPM package",
   "main": "dist/index.js",
   "homepage": "https://github.com/mishguruorg/selfupdate",

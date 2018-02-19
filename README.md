@@ -1,102 +1,81 @@
 @mishguru/selfupdate
---------------------
+====================
 
-Selfupdate your global NPM package.
+A handful of functions to implement self updating for globally installed NPM
+packages.
 
 Installation
 ------------
 
-Install `selfupdate` by running:
+Add `@mishguru/selfupdate` to your project:
 
 ```sh
 $ npm install --save @mishguru/selfupdate
 ```
 
-Example Usage
--------------
+Example
+-------
 
 ```javascript
-import { update, isUpdated } from '@mishguru/selfupdate'
+import {
+  fetchLatestPackageVersion,
+  installPackageVersion,
+  respawnProcess
+} from '@mishguru/selfupdate'
 
-import packageJSON from '../package.json'
+import pkg from './package.json'
 
-const { name, version } = packageJSON
+const latestVersion = await fetchLatestPackageVersion(pkg.name)
 
-const selfupdate = async () => {
-  console.log(`[${version}] Checking to see if there is a new version available...`)
+if (pkg.version !== latestVersion) {
+  await installPackageVersion(pkg.name, latestVersion)
 
-  const runningLatestVersion = await isUpdated(packageJSON)
-  if (!runningLatestVersion) {
-    console.log(`[${version}] Found a new version! Attempting to update...`)
+  console.log(`Upgraded from ${pkg.version} to ${latestVersion}. Restarting...`)
 
-    const version = await update(packageJSON)
-
-    console.log(`${name} v${version} has been installed!`)
-  } else {
-    console.log(`${name} v${packageJSON.version} is the latest version.`)
-  }
+  respawnProcess()
 }
-
-export default selfupdate
 ```
 
 Documentation
 -------------
 
-### selfupdate.update(Object packageJSON)
+### fetchLatestPackageVersion(packageName: string): Promise<string>
 
-Update a globally installed NPM package.
-
-If the installation fails with a permission related error, the module will
-attempt to elevate privileges automatically.
-
-The function requires the `package.json`, which you can require like:
-
-```javascript
-import packageJSON from './package.json'
-```
-
-A promise is returned, which will resolve with new version of the package after
-the update took place.
+Find the latest version of a particular package.
 
 Example:
 
 ```javascript
-import * as selfupdate from '@mishguru/selfupdate'
+import { fetchLatestPackageVersion } from '@mishguru/selfupdate'
 
-import packageJSON from './package.json'
+import pkg from './package.json'
 
-const version = await selfupdate.update(packageJSON)
+const latestVersion = await fetchLatestPackageVersion(pkg.name)
 
-console.log('The package was updated to version: ' + version)
+console.log(`Current version: ${pkg.version}`)
+console.log(`Latest version: ${latestVersion}`)
+console.log(`Up to date?: ${latestVersion === pkg.version}`)
 ```
 
-### selfupdate.isUpdated(Object packageJSON)
+### installPackageVersion(packageName: string, packageVersion: string): Promise<void>
 
-Check if a global package is in the latest version.
+Install a specific version of a package.
 
-The function requires the `package.json`, which you can require like:
-
-```javascript
-import packageJSON from './package.json'
-```
-
-A promise is returned, which will resolve with a `Boolean` that determines if
-the package is up to date.
+You can also pass a tag instaed of a version. For example, you can pass
+`'latest'` to install the latest version on NPM.
 
 Example:
 
 ```javascript
-import * as selfupdate from '@mishguru/selfupdate'
+import { installPackageVersion } from '@mishguru/selfupdate'
 
-import packageJSON from './package.json'
+import pkg from './package.json'
 
-const isUpdated = await selfupdate.isUpdated(packageJSON)
-
-console.log('Is the package up to date? ' + isUpdated)
+await installPackageVersion(pkg.name, '2.0.0')
 ```
 
-### selfupdate.restart()
+
+### respawnProcess()
 
 Restart the current process, based on `process.argv`.
 
@@ -109,15 +88,7 @@ must make sure the current process does not run any further code.
 Example:
 
 ```javascript
-import * as selfupdate from '@mishguru/selfupdate'
+import { respawnProcess } from '@mishguru/selfupdate'
 
-const isUpdated = await selfupdate.isUpdated(packageJSON)
-
-if (!isUpdated) {
-  const version = await selfupdate.update(packageJSON)
-  selfupdate.restart()
-  return
-} else {
-  console.log('Running the latest version!')
-}
+await respawnProcess()
 ```

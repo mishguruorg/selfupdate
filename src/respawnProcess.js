@@ -7,7 +7,7 @@ import { spawn } from 'child_process'
  * process does not run any further code.
  */
 
-const restart = () => {
+const respawnProcess = () => {
   const command = process.argv[0]
   const args = process.argv.slice(1)
 
@@ -20,4 +20,4 @@ const restart = () => {
   return child
 }
 
-export default restart
+export default respawnProcess

@@ -13,14 +13,14 @@ test.beforeEach((t) => {
 
     const processExit = sinon.stub(process, 'exit')
 
-    const restart = require('./restart').default
+    const respawnProcess = require('./respawnProcess').default
 
     t.context = {
       ...t.context,
       spawn,
       processExit,
       commandStreamStub,
-      restart
+      respawnProcess
     }
   }).mock()
 })
@@ -32,7 +32,7 @@ test.afterEach((t) => {
 })
 
 test.cb('should exit after the command finishes', (t) => {
-  const { commandStreamStub, processExit, restart } = t.context
+  const { commandStreamStub, processExit, respawnProcess } = t.context
 
   commandStreamStub.on = (event, onDone) => {
     t.is(event, 'close')
@@ -40,18 +40,18 @@ test.cb('should exit after the command finishes', (t) => {
     t.end()
   }
 
-  restart()
+  respawnProcess()
 
   t.is(processExit.callCount, 1)
   t.deepEqual(processExit.args, [[0]])
 })
 
 test('should call child_process.spawn appropriately', (t) => {
-  const { spawn, restart } = t.context
+  const { spawn, respawnProcess } = t.context
 
   process.argv = ['coffee', 'foo', 'bar']
 
-  restart()
+  respawnProcess()
 
   t.is(spawn.callCount, 1)
   t.deepEqual(spawn.args, [

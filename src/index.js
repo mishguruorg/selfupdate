@@ -1,11 +1,11 @@
 /* @flow */
 
-import update from './selfupdate'
-import isUpdated from './isUpdated'
-import restart from './restart'
+import fetchLatestPackageVersion from './fetchLatestPackageVersion'
+import installPackageVersion from './installPackageVersion'
+import respawnProcess from './respawnProcess'
 
 export {
-  update,
-  isUpdated,
-  restart
+  fetchLatestPackageVersion,
+  installPackageVersion,
+  respawnProcess
 }

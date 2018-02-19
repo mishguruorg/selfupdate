@@ -9,7 +9,7 @@ const loadAsync = promisify(npm.load)
  * Get information about an NPM package
  */
 
-const getInfo = async (packageName: string) => {
+const fetchPackageInfo = async (packageName: string) => {
   await loadAsync({
     loglevel: 'silent',
     global: true
@@ -21,4 +21,4 @@ const getInfo = async (packageName: string) => {
   return info
 }
 
-export default getInfo
+export default fetchPackageInfo

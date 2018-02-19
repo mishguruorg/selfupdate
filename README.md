@@ -90,5 +90,5 @@ Example:
 ```javascript
 import { respawnProcess } from '@mishguru/selfupdate'
 
-await respawnProcess()
+respawnProcess()
 ```

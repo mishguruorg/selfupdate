@@ -1,11 +1,9 @@
-@mishguru/selfupdate
-====================
+# @mishguru/selfupdate
 
 A handful of functions to implement self updating for globally installed NPM
 packages.
 
-Installation
-------------
+## Installation
 
 Add `@mishguru/selfupdate` to your project:
 
@@ -13,8 +11,28 @@ Add `@mishguru/selfupdate` to your project:
 $ npm install --save @mishguru/selfupdate
 ```
 
-Example
--------
+## Example
+
+The `selfupdate` function will automatically check the NPM registry for a new
+version, and if it exists install it globally and live restart your app to use
+the new version.
+
+It's important that you run `selfupdate(pkg)` as soon as your app starts, and
+that you await the promise it returns before doing anything else. This is
+because if a new version has been loaded.
+
+```javascript
+import { selfupdate } from '@mishguru/selfupdate'
+
+import pkg from './package.json'
+
+selfupdate(pkg).then(startMyApp)
+```
+
+## Advanced Example
+
+If you want a full control over how the upgrade works, then you can use the
+helper functions provided.
 
 ```javascript
 import {
@@ -39,7 +57,27 @@ if (pkg.version !== latestVersion) {
 Documentation
 -------------
 
-### fetchLatestPackageVersion(packageName: string): Promise<string>
+### selfupdate(package: object): Promise&lt;void>
+
+Automatically check for updates, and install and restart if they are available.
+
+Example:
+
+```javascript
+import { selfupdate  } from '@mishguru/selfupdate'
+
+import pkg from './package.json'
+
+const start = async () => {
+  await selfupdate(pkg)
+
+  console.log(`Running version ${pkg.version}`)
+}
+
+start().catch(console.error)
+```
+
+### fetchLatestPackageVersion(packageName: string): Promise&lt;string>
 
 Find the latest version of a particular package.
 
@@ -57,7 +95,7 @@ console.log(`Latest version: ${latestVersion}`)
 console.log(`Up to date?: ${latestVersion === pkg.version}`)
 ```
 
-### installPackageVersion(packageName: string, packageVersion: string): Promise<void>
+### installPackageVersion(packageName: string, packageVersion: string): Promise&lt;void>
 
 Install a specific version of a package.
 

@@ -10,7 +10,7 @@ const installPackageVersion = async (name: string, version: string) => {
   const command = `npm install --silent --global ${name}@${version}`
   const result = await exec(command)
 
-  if (result.stderr != null) {
+  if (result.stderr.trim().length > 0) {
     throw new Error(result.stderr)
   }
 }

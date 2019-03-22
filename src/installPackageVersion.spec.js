@@ -1,22 +1,20 @@
 /* @flow */
 
 import test from 'ava'
-import stu from 'stu'
+import { mock, test as require } from 'stu'
 
 const NAME = '@mishguru/selfupdate'
 const VERSION = '1.0.0'
 
 test.beforeEach((t) => {
-  stu((mock, require) => {
-    const exec = mock('child-process-es6-promise').exec
-    const installPackageVersion = require('./installPackageVersion').default
+  const exec = mock('child-process-es6-promise').exec
+  const installPackageVersion = require('./installPackageVersion').default
 
-    t.context = {
-      ...t.context,
-      exec,
-      installPackageVersion
-    }
-  }).mock()
+  t.context = {
+    ...t.context,
+    exec,
+    installPackageVersion
+  }
 })
 
 test('given running the command returns an error', async (t) => {

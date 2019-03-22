@@ -1,7 +1,7 @@
 /* @flow */
 
 import test from 'ava'
-import stu from 'stu'
+import { mock, test as require } from 'stu'
 
 import packageJSON from '../package.json'
 
@@ -9,16 +9,14 @@ import gitwrapNpmInfo from './testHelpers/fixtures/npm-info/gitwrap.json'
 import nplugmNpmInfo from './testHelpers/fixtures/npm-info/nplugm.json'
 
 test.beforeEach((t) => {
-  stu((mock, require) => {
-    const fetchPackageInfo = mock('./fetchPackageInfo').default
-    const fetchLatestPackageVersion = require('./fetchLatestPackageVersion').default
+  const fetchPackageInfo = mock('./fetchPackageInfo').default
+  const fetchLatestPackageVersion = require('./fetchLatestPackageVersion').default
 
-    t.context = {
-      ...t.context,
-      fetchPackageInfo,
-      fetchLatestPackageVersion
-    }
-  }).mock()
+  t.context = {
+    ...t.context,
+    fetchPackageInfo,
+    fetchLatestPackageVersion
+  }
 })
 
 test('should throw an error', async (t) => {
@@ -36,7 +34,7 @@ test('should throw an error', async (t) => {
   }
 })
 
-test('should return the latest version', async (t) => {
+test('should return the latest version for gitwrap', async (t) => {
   const { fetchPackageInfo, fetchLatestPackageVersion } = t.context
 
   fetchPackageInfo.resolves(gitwrapNpmInfo)
@@ -45,11 +43,11 @@ test('should return the latest version', async (t) => {
   t.is(version, '1.1.0')
 })
 
-test('should return the latest version', async (t) => {
+test('should return the latest version fro nplug', async (t) => {
   const { fetchPackageInfo, fetchLatestPackageVersion } = t.context
 
   fetchPackageInfo.resolves(nplugmNpmInfo)
 
   const version = await await fetchLatestPackageVersion(packageJSON.name)
-  t.is(version, '2.2.0')
+  t.is(version, '3.0.5')
 })

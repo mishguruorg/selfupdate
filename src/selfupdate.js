@@ -57,7 +57,7 @@ const selfupdate = async (pkg, options = {}) => {
   try {
     spinner.start(`Installing ${pkg.name} v${latestVersion}`)
     await installPackageVersion(pkg.name, latestVersion)
-    spinner.succeed(`Successfully installed ${pkg.name} v${latestVersion}.`)
+    spinner.succeed(`Successfully installed ${pkg.name} v${latestVersion}`)
 
     spinner.start(`Automatically loading new version`)
     await delay(3 * 1000)

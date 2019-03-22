@@ -3,6 +3,8 @@
 A handful of functions to implement self updating for globally installed NPM
 packages.
 
+![]('./capture.gif')
+
 ## Installation
 
 Add `@mishguru/selfupdate` to your project:

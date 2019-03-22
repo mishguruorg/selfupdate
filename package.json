@@ -35,7 +35,13 @@
     "stu": "^3.0.0"
   },
   "dependencies": {
+    "cacache": "^11.3.2",
     "child-process-es6-promise": "^1.2.1",
-    "npm": "^6.9.0"
+    "delay": "^4.1.0",
+    "npm": "^6.9.0",
+    "npm-package-arg": "^6.1.0",
+    "ora": "^3.2.0",
+    "pacote": "^9.5.0",
+    "semver-compare": "^1.0.0"
   }
 }

@@ -49,5 +49,5 @@ test('should return the latest version fro nplug', async (t) => {
   fetchPackageInfo.resolves(nplugmNpmInfo)
 
   const version = await await fetchLatestPackageVersion(packageJSON.name)
-  t.is(version, '2.2.0')
+  t.is(version, '3.0.5')
 })

@@ -8,8 +8,7 @@ import fetchPackageInfo from './fetchPackageInfo'
 
 const fetchLatestPackageVersion = async (packageName: string) => {
   const data = await fetchPackageInfo(packageName)
-  const versions = Object.keys(data)
-  const latestVersion = versions[0]
+  const latestVersion = data['dist-tags'].latest
   return latestVersion
 }
 

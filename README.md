@@ -57,7 +57,7 @@ if (pkg.version !== latestVersion) {
 Documentation
 -------------
 
-### selfupdate(package: object): Promise&gtvoid&lt
+### selfupdate(package: object): Promise&lt;void>
 
 Automatically check for updates, and install and restart if they are available.
 
@@ -77,7 +77,7 @@ const start = async () => {
 start().catch(console.error)
 ```
 
-### fetchLatestPackageVersion(packageName: string): Promise&gtstring&lt
+### fetchLatestPackageVersion(packageName: string): Promise&lt;string>
 
 Find the latest version of a particular package.
 
@@ -95,7 +95,7 @@ console.log(`Latest version: ${latestVersion}`)
 console.log(`Up to date?: ${latestVersion === pkg.version}`)
 ```
 
-### installPackageVersion(packageName: string, packageVersion: string): Promise&gtvoid&lt
+### installPackageVersion(packageName: string, packageVersion: string): Promise&lt;void>
 
 Install a specific version of a package.
 

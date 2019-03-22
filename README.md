@@ -29,9 +29,9 @@ import pkg from './package.json'
 selfupdate(pkg).then(startMyApp)
 ```
 
-## Complex Example
+## Advanced Example
 
-If you want a bit more control over how the upgrade works, then you use the
+If you want a full control over how the upgrade works, then you can use the
 helper functions provided.
 
 ```javascript
@@ -57,7 +57,7 @@ if (pkg.version !== latestVersion) {
 Documentation
 -------------
 
-### selfupdate(package: object): Promise<void>
+### selfupdate(package: object): Promise&gtvoid&lt
 
 Automatically check for updates, and install and restart if they are available.
 
@@ -77,7 +77,7 @@ const start = async () => {
 start().catch(console.error)
 ```
 
-### fetchLatestPackageVersion(packageName: string): Promise<string>
+### fetchLatestPackageVersion(packageName: string): Promise&gtstring&lt
 
 Find the latest version of a particular package.
 
@@ -95,7 +95,7 @@ console.log(`Latest version: ${latestVersion}`)
 console.log(`Up to date?: ${latestVersion === pkg.version}`)
 ```
 
-### installPackageVersion(packageName: string, packageVersion: string): Promise<void>
+### installPackageVersion(packageName: string, packageVersion: string): Promise&gtvoid&lt
 
 Install a specific version of a package.
 

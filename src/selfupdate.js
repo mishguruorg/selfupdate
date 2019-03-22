@@ -10,6 +10,7 @@ import installPackageVersion from './installPackageVersion'
 import respawnProcess from './respawnProcess'
 
 const CACHE = join(tmpdir(), 'selfupdate')
+const DEFAULT_CHECK_INTERVAL = 1 * 60 * 60 * 1000
 
 // You can block a thread from running by making it await this promise
 const BLOCK_THREAD = new Promise(() => false)
@@ -19,16 +20,14 @@ const updateCheckInterval = (key) => {
   return cacache.put(CACHE, key, value)
 }
 
-const isBeyondCheckInterval = async (pkgName) => {
+const isBeyondCheckInterval = async (pkgName, checkInterval) => {
   const key = `last-check:${pkgName}`
-
-  const ONE_HOUR = 1000
 
   let isBeyond = true
   try {
     const cacheObj = await cacache.get(CACHE, key)
     const time = Number(cacheObj.data.toString('utf8'))
-    isBeyond = (time + ONE_HOUR) < Date.now()
+    isBeyond = (time + checkInterval) < Date.now()
   } catch (notFound) {
   }
 
@@ -40,8 +39,10 @@ const isBeyondCheckInterval = async (pkgName) => {
 }
 
 
-const selfupdate = async (pkg) => {
-  const shouldCheck = await isBeyondCheckInterval(pkg.name)
+const selfupdate = async (pkg, options = {}) => {
+  const { checkInterval = DEFAULT_CHECK_INTERVAL } = options
+
+  const shouldCheck = await isBeyondCheckInterval(pkg.name, checkInterval)
 
   if (shouldCheck === false) {
     return

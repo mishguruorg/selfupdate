@@ -57,9 +57,14 @@ if (pkg.version !== latestVersion) {
 Documentation
 -------------
 
-### selfupdate(package: object): Promise&lt;void>
+### selfupdate(package: object, options?: object): Promise&lt;void>
 
 Automatically check for updates, and install and restart if they are available.
+
+The options available are:
+
+- `checkInterval`: The number of milliseconds to wait before querying the
+  registry. Set to `0` to query every time. Default is 1 hour.
 
 Example:
 
@@ -69,7 +74,9 @@ import { selfupdate  } from '@mishguru/selfupdate'
 import pkg from './package.json'
 
 const start = async () => {
-  await selfupdate(pkg)
+  await selfupdate(pkg, {
+    checkInterval: 1 * 60 * 60 * 1000 // optional
+  })
 
   console.log(`Running version ${pkg.version}`)
 }

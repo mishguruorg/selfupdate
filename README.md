@@ -17,9 +17,9 @@ The `selfupdate` function will automatically check the NPM registry for a new
 version, and if it exists install it globally and live restart your app to use
 the new version.
 
-It's important that you run `selfupdate(pkg)` as soon as your app starts, and
-that you await the promise it returns before doing anything else. This is
-because if a new version has been loaded.
+It's important that you run `selfupdate(pkg)` as soon as your app starts. You
+must also await the promise it returns before doing anything else. Otherwise
+both the old and new versions will run simultaneously.
 
 ```javascript
 import { selfupdate } from '@mishguru/selfupdate'

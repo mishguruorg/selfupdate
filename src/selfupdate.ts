@@ -58,8 +58,8 @@ const selfupdate = async (pkg: Pkg, options: SelfupdateOptions = {}) => {
   const spinner = ora().start()
 
   spinner.text = 'Checking internet connection'
-  if ((await isOnline()) === false) {
-    console.log('not online...')
+  if ((await isOnline({ timeout: 2000 })) === false) {
+    spinner.warn('No internet connection detected, skipping selfupdate!')
     return
   }
 

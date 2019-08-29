@@ -1,25 +1,30 @@
-import test from 'ava'
-import sinon from 'sinon'
-import { mock, test as require } from 'stu'
-import stream from 'stream'
+import anyTest, { TestInterface } from 'ava'
+import sinon, { SinonStub } from 'sinon'
+import * as stu from 'stu'
+import stream, { Stream } from 'stream'
+
+const test = anyTest as TestInterface<{
+  processExit: SinonStub,
+  commandStreamStub: Stream,
+  respawnProcess: () => void,
+}>
 
 test.beforeEach((t) => {
-  const spawn = mock('child_process').spawn
+  const spawn = stu.mock('child_process').spawn
 
   const commandStreamStub = new stream.Readable()
   commandStreamStub._read = () => null
   spawn.returns(commandStreamStub)
 
-  const respawnProcess = require('./respawnProcess').default
+  const { default: respawnProcess } = stu.test('./respawnProcess')
 
   const processExit = sinon.stub(process, 'exit')
 
   t.context = {
     ...t.context,
-    spawn,
     processExit,
     commandStreamStub,
-    respawnProcess
+    respawnProcess,
   }
 })
 
@@ -30,6 +35,7 @@ test.cb('should exit after the command finishes', (t) => {
     t.is(event, 'close')
     onDone(0)
     t.end()
+    return commandStreamStub
   }
 
   respawnProcess()

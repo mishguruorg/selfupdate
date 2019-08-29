@@ -3,6 +3,7 @@
   "version": "4.4.0",
   "description": "Selfupdate your global NPM package",
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "homepage": "https://github.com/mishguruorg/selfupdate",
   "repository": {
     "type": "git",
@@ -16,33 +17,36 @@
   ],
   "scripts": {
     "build": "pkg-build",
-    "coverage": "NODE_ENV=test_local pkg-coverage",
-    "flow": "pkg-flow",
     "lint": "pkg-lint",
+    "tidy": "pkg-tidy",
     "prepublish": "pkg-build",
     "postpublish": "git push origin master --tags",
-    "test": "NODE_ENV=test_local pkg-test",
-    "test-only": "NODE_ENV=test_local pkg-test-only",
+    "test": "pkg-test",
     "start": "node dist/cli.js"
   },
-  "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
+  "author": "Mish Guru <devs@mish.guru>",
   "constributors": [
     "George Czabania <george@mish.guru>"
   ],
   "license": "MIT",
   "devDependencies": {
-    "@mishguru/package": "5.2.0",
-    "sinon": "^7.3.0",
-    "stu": "^3.0.0"
+    "@mishguru/package": "7.7.0",
+    "@types/sinon": "7.0.13",
+    "sinon": "^7.4.1",
+    "stu": "^3.1.0"
   },
   "dependencies": {
-    "cacache": "^11.3.2",
-    "child-process-es6-promise": "^1.2.1",
-    "delay": "^4.1.0",
-    "npm": "^6.9.0",
-    "npm-package-arg": "^6.1.0",
-    "ora": "^3.2.0",
-    "pacote": "^9.5.0",
+    "@types/node": "12.7.2",
+    "@types/npm-package-arg": "6.1.0",
+    "@types/semver-compare": "1.0.0",
+    "cacache": "^12.0.3",
+    "delay": "^4.3.0",
+    "execa": "2.0.4",
+    "is-online": "8.2.0",
+    "npm": "^6.11.2",
+    "npm-package-arg": "^6.1.1",
+    "ora": "^3.4.0",
+    "pacote": "^9.5.8",
     "semver-compare": "^1.0.0"
   }
 }

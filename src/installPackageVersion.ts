@@ -1,6 +1,4 @@
-/* @flow */
-
-import { exec } from 'child-process-es6-promise'
+import execa from 'execa'
 
 /**
  * Update an NPM package
@@ -8,7 +6,7 @@ import { exec } from 'child-process-es6-promise'
 
 const installPackageVersion = async (name: string, version: string) => {
   const command = `npm install --silent --global ${name}@${version}`
-  const result = await exec(command)
+  const result = await execa.command(command)
 
   if (result.stderr.trim().length > 0) {
     throw new Error(result.stderr)

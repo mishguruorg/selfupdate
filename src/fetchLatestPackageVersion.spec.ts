@@ -1,21 +1,26 @@
-/* @flow */
+import anyTest, { TestInterface } from 'ava'
+import * as stu from 'stu'
+import { SinonStub } from 'sinon'
 
-import test from 'ava'
-import { mock, test as require } from 'stu'
-
-import packageJSON from '../package.json'
+const packageJSON = require('../package.json')
 
 import gitwrapNpmInfo from './testHelpers/fixtures/npm-info/gitwrap.json'
 import nplugmNpmInfo from './testHelpers/fixtures/npm-info/nplugm.json'
 
+const test = anyTest as TestInterface<{
+  fetchPackageInfo: SinonStub,
+  fetchLatestPackageVersion: (packageName: string) => Promise<string>,
+}>
+
 test.beforeEach((t) => {
-  const fetchPackageInfo = mock('./fetchPackageInfo').default
-  const fetchLatestPackageVersion = require('./fetchLatestPackageVersion').default
+  const fetchPackageInfo = stu.mock('./fetchPackageInfo').default
+  const fetchLatestPackageVersion = stu.test('./fetchLatestPackageVersion')
+    .default
 
   t.context = {
     ...t.context,
     fetchPackageInfo,
-    fetchLatestPackageVersion
+    fetchLatestPackageVersion,
   }
 })
 

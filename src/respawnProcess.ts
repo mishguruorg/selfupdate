@@ -12,7 +12,7 @@ const respawnProcess = () => {
   const args = process.argv.slice(1)
 
   const child = spawn(command, args, {
-    stdio: 'inherit'
+    stdio: 'inherit',
   })
 
   child.on('close', process.exit)

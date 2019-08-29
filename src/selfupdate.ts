@@ -63,8 +63,14 @@ const selfupdate = async (pkg: Pkg, options: SelfupdateOptions = {}) => {
     return
   }
 
-  spinner.text = 'Checking for updates'
-  const latestVersion = await fetchLatestPackageVersion(pkg.name)
+  let latestVersion: string = null
+  try {
+    spinner.text = 'Checking for updates'
+    latestVersion = await fetchLatestPackageVersion(pkg.name)
+  } catch (error) {
+    spinner.fail(`Could not fetch the latest version of ${pkg.name}!`)
+    return
+  }
 
   const newVersionAvailable = cmp(pkg.version, latestVersion) < 0
   if (newVersionAvailable === false) {
